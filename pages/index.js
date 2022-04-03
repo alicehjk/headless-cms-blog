@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { getAllPosts } from '../lib/posts';
 import styles from '../styles/Home.module.css';
+import Image from '../components/Image';
 
 export default function Home() {
   const posts = getAllPosts();
@@ -13,31 +14,31 @@ export default function Home() {
         <h1>Technical Blog w/ Alice</h1>  
       </div>
       <div>
-      <BlogPostReview />
+        {posts.map( 
+          post => <BlogPostReview key={post.id} data={post}/>
+        )}
       </div>    
     </div>
   )
 }
 
 const BlogPostReview = (props) => {
-  console.log(props);
+  // console.log(props);
+  const { data } = props;
   return (
     <div className={styles.blog}>
-      <img 
-        src="./images/koba.png" 
-        alt="Koba" 
+
+      <Image 
+        src={data.coverImage} 
+        alt={data.title}
+        layout="fill"
       />
-      <h2>Blog title 1</h2>
-      <div>Apr 2 2022</div>
+      <h2>{data.title}</h2>
+      <div>{data.publishDate}</div>
       <p>
-      In this Next.js tutorial we will build a blog. We will concentrate on the 
-      functionality of the blog and the basics of Next js. This Next.js tutorial 
-      is great for beginners. At the end of this tutorial you will have a working 
-      blog application. This video is first part of a series where we build a 
-      fully functioning blog with Next.js.
+        {data.excerpt}
       </p>
-      <div className={styles.author}>Alice Kim</div>
+      <div className={styles.author}>{data.author}</div>
     </div>
   );
-
-}
+};
