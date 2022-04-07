@@ -1,4 +1,5 @@
 import { getAllSlugs, getPostData } from "../../lib/posts"
+import Link from "next/link";
 import styles from './BlogPost.module.css';
 import Image from '../../components/Image';
 
@@ -21,6 +22,11 @@ export default function BlogPost(props) {
             <p>
                 {postData.content}
             </p>
+            <div>
+                <Link href='/'>
+                    <a>⌫ -Back to the main</a>
+                </Link>
+            </div>
         </div>
     )
 }
